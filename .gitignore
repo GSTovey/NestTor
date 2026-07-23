@@ -1,0 +1,16 @@
+# Local operating-system and editor files
+.DS_Store
+.AppleDouble
+.LSOverride
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Raw traffic is not part of the public repository.
+*.pcap
+*.pcapng
+*.cap
+data/**/*.pcap
+data/**/*.pcapng
+data/**/*.cap
