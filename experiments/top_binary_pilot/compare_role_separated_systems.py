@@ -1,17 +1,16 @@
-#!/usr/bin/env python3
-"""Compare complete ToP systems under one shared outer proxy gate.
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
 
-The script performs no model or threshold selection.  It reuses frozen per-flow
-scores and predictions, composes each inner detector with the same PAST outer
-gate, and evaluates two permission-aligned settings:
-
-* closed: source-validation thresholds on the 800-flow closed test;
-* vless: pure-VLESS-negative-only calibration on the 563-flow VLESS evaluation
-  subset (363 proxy-conditioned evaluation flows plus 200 normal/direct flows).
-
-PAST-Extended is retained as a retrospective exploratory candidate, not as a
-confirmatory replacement for the v8-selected PAST+Residual detector.
-"""
 
 from __future__ import annotations
 
@@ -52,7 +51,7 @@ def sha256(path: Path) -> str:
 
 
 def compose_prediction(outer: np.ndarray, inner: np.ndarray) -> np.ndarray:
-    """A ToP decision requires both proxy-path and inner-Tor evidence."""
+
     return np.logical_and(outer.astype(bool), inner.astype(bool)).astype(int)
 
 
@@ -218,8 +217,8 @@ def compose_frame(
             f"received {len(inner)}"
         )
     base = base.merge(inner, on="sample_id", how="left", validate="one_to_one")
-    # ``merge`` rebuilds the row index, so the pre-merge Boolean Series must not
-    # be reused with ``.loc`` even though row order is stable.
+
+
     proxy_mask = base["background_group"].isin(["positive", "pure_proxy"])
     base.loc[~proxy_mask, "probability"] = 1.0
     base.loc[~proxy_mask, "inner_prediction"] = 1

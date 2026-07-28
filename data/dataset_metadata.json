@@ -1,0 +1,17 @@
+{
+  "protocol": "original_ja4tor_prototype_core_test_capture_compatibility",
+  "capture_count": 200,
+  "flow_count": 650,
+  "max_flows_per_capture": 5,
+  "class_counts": {
+    "NonTor": 200,
+    "Tor": 47,
+    "Tor-SS": 80,
+    "Tor-Trojan": 198,
+    "Tor-Vmess": 125
+  },
+  "has_pure_proxy_negative": false,
+  "is_main_confirmation": false,
+  "sii_fields_used": [],
+  "flow_pairs_used": false
+}

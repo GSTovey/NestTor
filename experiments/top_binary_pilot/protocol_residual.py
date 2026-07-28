@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-"""Protocol-derived, SII-free residual features for the 5,000-flow pilot."""
-
 from __future__ import annotations
 
 import math
@@ -271,7 +268,7 @@ def _flow_control_features(
 
 
 def flow_residual_features(packet_x: np.ndarray, packet_mask: np.ndarray) -> dict[str, float]:
-    """Extract protocol-derived features from direction/log-length/log-IAT tensors."""
+
     valid = np.asarray(packet_mask, dtype=bool)
     packet_x = np.asarray(packet_x, dtype=float)[valid]
     if packet_x.ndim != 2 or (len(packet_x) and packet_x.shape[1] != 3):

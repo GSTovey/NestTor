@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-"""Probe role-separated inner-Tor residuals and a PAST outer-proxy gate."""
-
 from __future__ import annotations
 
 import argparse
@@ -238,13 +235,13 @@ def metrics_from_predictions(
 
 
 def negative_only_threshold(scores: np.ndarray, alpha: float) -> float:
-    """Upper-tail threshold derived only from pure-proxy calibration scores."""
+
     scores = np.asarray(scores, dtype=float)
     if not len(scores):
         raise ValueError("Negative-only calibration requires at least one pure-proxy score")
     try:
         quantile = np.quantile(scores, 1.0 - alpha, method="higher")
-    except TypeError:  # NumPy < 1.22 in the frozen remote environment.
+    except TypeError:
         quantile = np.quantile(scores, 1.0 - alpha, interpolation="higher")
     return float(np.nextafter(float(quantile), np.inf))
 

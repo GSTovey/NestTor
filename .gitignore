@@ -1,4 +1,7 @@
-# Local operating-system and editor files
+__pycache__/
+*.pyc
+.venv/
+outputs/
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -6,8 +9,6 @@
 *.swo
 .idea/
 .vscode/
-
-# Raw traffic is not part of the public repository.
 *.pcap
 *.pcapng
 *.cap

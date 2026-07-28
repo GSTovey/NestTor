@@ -1,13 +1,16 @@
-# NestTor processed samples
+# NestTor processed sample
 
-此目录只存放已经完成预处理的 flow samples，不存放原始 PCAP、抓包目录或模型 checkpoint。
+[中文](README_zh.md)
 
-标准样本由以下文件组成：
+This directory contains a 650-flow processed compatibility sample for inspecting the public data format. It is not the fixed development dataset or the held-out confirmatory dataset, and it contains no Pure Proxy negatives.
 
-```text
-manifest.csv
-past_features.csv
-sequences.npz
-```
+The files are:
 
-这些文件通过 `sample_id` 对齐。模型输入不得包含地址、端口、域名、文件名、时间戳或其他高基数身份字段。
+- `manifest.csv`: anonymized sample identifiers, labels, traffic groups, carriers, and split names;
+- `past_features.csv`: 99 numerical flow-behavior and stage-dynamics features;
+- `sequences.npz`: packet and burst tensors aligned by `sample_id`;
+- `dataset_metadata.json`: provenance and scope of this public sample.
+
+`manifest.csv`, `past_features.csv`, and `sequences.npz` are row-aligned by `sample_id`. The model inputs exclude addresses, ports, domains, filenames, absolute timestamps, payload content, and other high-cardinality identifiers.
+
+The sample is provided for schema inspection and code integration only. Reproducing the reported experiments requires the fixed manifests and full processed datasets defined by the paper.

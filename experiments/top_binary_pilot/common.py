@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-"""Shared definitions for the 5,000-flow ToP binary pilot."""
-
 from __future__ import annotations
 
 import hashlib
@@ -25,7 +22,7 @@ MAX_FLOWS_PER_CAPTURE = 5
 MAX_PACKETS = 128
 MAX_BURSTS = 64
 
-# Exact flow quotas.  The sum is 5,000.
+
 QUOTAS: dict[tuple[str, str, str], int] = {
     ("train", "top", "ss"): 400,
     ("train", "top", "trojan"): 400,
@@ -64,7 +61,7 @@ def stable_hash(value: str, seed: int = SEED) -> int:
 
 
 def assigned_split(group_key: str) -> str:
-    """Global group assignment: domains/captures never cross a split."""
+
     bucket = stable_hash(group_key) % 100
     if bucket < 50:
         return "train"
@@ -115,7 +112,7 @@ def endpoint(ip: str, port: int) -> tuple[str, int]:
 def canonical_flow_key(packet: Packet) -> tuple[tuple[str, int], tuple[str, int]]:
     left = endpoint(packet.src_ip, packet.src_port)
     right = endpoint(packet.dst_ip, packet.dst_port)
-    return tuple(sorted((left, right)))  # type: ignore[return-value]
+    return tuple(sorted((left, right)))
 
 
 def flow_key_text(key: tuple[tuple[str, int], tuple[str, int]]) -> str:
@@ -286,7 +283,7 @@ def _segment_features(
 
 
 def past_features(packets: list[Packet]) -> tuple[dict[str, float], list[str]]:
-    """SII-free transport/performance PAST view plus temporal extensions."""
+
     initiator, data_packets = _initiator_and_data(packets)
     directions = np.asarray([_direction(packet, initiator) for packet in data_packets])
     payload_lengths = np.asarray([packet.payload_len for packet in data_packets], dtype=float)
@@ -357,7 +354,7 @@ def jsd_score(values: pd.Series, labels: pd.Series, bins: int = 32) -> float:
 
 
 def carrier_stable_ranking(X: pd.DataFrame, meta: pd.DataFrame) -> pd.DataFrame:
-    """Rank independent distributions; no samples are paired or differenced."""
+
     rows = []
     for feature in X.columns:
         utilities = []
@@ -449,4 +446,3 @@ def false_positive_rates(meta: pd.DataFrame, probabilities: np.ndarray, threshol
         mask = meta["background_group"].to_numpy() == group
         rows[group] = float(np.mean(prediction[mask])) if np.any(mask) else float("nan")
     return rows
-

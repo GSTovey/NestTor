@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-"""Incrementally build the fixed 5,000-flow ToP pilot dataset from pcaps."""
-
 from __future__ import annotations
 
 import argparse
@@ -138,7 +135,7 @@ def new_candidates(root: Path) -> list[Candidate]:
 
 
 def background_candidates(root: Path) -> list[Candidate]:
-    """Use independent stages from the same crawl corpus to avoid source shortcuts."""
+
     rows: list[Candidate] = []
     canonical_root = root / "ss" / "pcap"
     for kind, filename, carrier in (
