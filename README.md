@@ -4,7 +4,7 @@
 
 NestTor detects whether an encrypted proxy flow carries Tor without using addresses, ports, domains, filenames, absolute timestamps, payload content, or high-cardinality identifiers. The supported outer proxies are Shadowsocks, Trojan, VMess, and VLESS.
 
-[Main framework figure (PDF)](figures/main_framework.pdf)
+![NESTTOR main framework](main_framework.png)
 
 This repository is for research use only.
 
@@ -36,8 +36,7 @@ code/
   run_protocol_residual_audit.py
   run_residual_hgb_probe.py
   compare_role_separated_systems.py
-figures/
-  main_framework.pdf
+main_framework.png
 ```
 
 The public code contains the current core data builder, representation code, protocol-residual audit, role-separated HGB pipeline, and system comparison entry point. Historical experiments, revision records, raw PCAPs, and model checkpoints are not included.

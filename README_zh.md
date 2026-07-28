@@ -4,7 +4,7 @@
 
 NestTor 用于判断一条加密代理 flow 内部是否承载 Tor。模型不使用地址、端口、域名、文件名、绝对时间戳、载荷内容或高基数标识，覆盖 Shadowsocks、Trojan、VMess 和 VLESS 四种外层代理。
 
-[主框架图（PDF）](figures/main_framework.pdf)
+![NESTTOR 主框架图](main_framework.png)
 
 本仓库仅供科研使用。
 
@@ -36,8 +36,7 @@ code/
   run_protocol_residual_audit.py
   run_residual_hgb_probe.py
   compare_role_separated_systems.py
-figures/
-  main_framework.pdf
+main_framework.png
 ```
 
 公开代码包含当前核心数据构建、表示提取、协议残留审计、职责分离 HGB 流程和系统比较入口。历史实验、修订记录、原始 PCAP 和模型 checkpoint 不在本仓库中。
