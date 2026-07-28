@@ -1,14 +1,10 @@
-# NestTor
+# NestTor: Detecting Tor within Encrypted Proxy Tunnels by Separating Proxy and Tor Evidence
 
 [English](README.md)
 
-**NestTor: Detecting Tor within Encrypted Proxy Tunnels by Separating Proxy and Tor Evidence**
-
 NestTor 用于判断一条加密代理 flow 内部是否承载 Tor。模型不使用地址、端口、域名、文件名、绝对时间戳、载荷内容或高基数标识，覆盖 Shadowsocks、Trojan、VMess 和 VLESS 四种外层代理。
 
-[![NestTor 架构](figures/main_figure_0727.png)](figures/主图_0727.pdf)
-
-点击预览图可打开原始 PDF。
+[主框架图（PDF）](figures/main_framework.pdf)
 
 本仓库仅供科研使用。
 
@@ -32,7 +28,7 @@ data/
   past_features.csv
   sequences.npz
   dataset_metadata.json
-experiments/top_binary_pilot/
+code/
   common.py
   build_pilot_dataset.py
   run_pilot.py
@@ -41,8 +37,7 @@ experiments/top_binary_pilot/
   run_residual_hgb_probe.py
   compare_role_separated_systems.py
 figures/
-  main_figure_0727.png
-  主图_0727.pdf
+  main_framework.pdf
 ```
 
 公开代码包含当前核心数据构建、表示提取、协议残留审计、职责分离 HGB 流程和系统比较入口。历史实验、修订记录、原始 PCAP 和模型 checkpoint 不在本仓库中。
@@ -64,11 +59,11 @@ python3 -m pip install -r requirements.txt
 完整复现需要论文定义的固定 5,000-flow 开发数据。数据目录必须包含 `manifest.csv`、`past_features.csv`、`sequences.npz` 和 `dataset_metadata.json`。
 
 ```bash
-python3 experiments/top_binary_pilot/run_protocol_residual_audit.py \
+python3 code/run_protocol_residual_audit.py \
   --data-dir /path/to/development-data \
   --output-dir /path/to/residual-audit
 
-python3 experiments/top_binary_pilot/run_residual_hgb_probe.py \
+python3 code/run_residual_hgb_probe.py \
   --data-dir /path/to/development-data \
   --output-dir /path/to/nesttor-output
 ```
@@ -78,7 +73,7 @@ python3 experiments/top_binary_pilot/run_residual_hgb_probe.py \
 只检查代码是否可解析时，可运行：
 
 ```bash
-python3 -m py_compile experiments/top_binary_pilot/*.py
+python3 -m py_compile code/*.py
 ```
 
 ## 数据

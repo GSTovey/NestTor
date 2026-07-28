@@ -1,14 +1,10 @@
-# NestTor
+# NestTor: Detecting Tor within Encrypted Proxy Tunnels by Separating Proxy and Tor Evidence
 
 [中文](README_zh.md)
 
-**NestTor: Detecting Tor within Encrypted Proxy Tunnels by Separating Proxy and Tor Evidence**
-
 NestTor detects whether an encrypted proxy flow carries Tor without using addresses, ports, domains, filenames, absolute timestamps, payload content, or high-cardinality identifiers. The supported outer proxies are Shadowsocks, Trojan, VMess, and VLESS.
 
-[![NestTor architecture](figures/main_figure_0727.png)](figures/主图_0727.pdf)
-
-The preview links to the original PDF.
+[Main framework figure (PDF)](figures/main_framework.pdf)
 
 This repository is for research use only.
 
@@ -32,7 +28,7 @@ data/
   past_features.csv
   sequences.npz
   dataset_metadata.json
-experiments/top_binary_pilot/
+code/
   common.py
   build_pilot_dataset.py
   run_pilot.py
@@ -41,8 +37,7 @@ experiments/top_binary_pilot/
   run_residual_hgb_probe.py
   compare_role_separated_systems.py
 figures/
-  main_figure_0727.png
-  主图_0727.pdf
+  main_framework.pdf
 ```
 
 The public code contains the current core data builder, representation code, protocol-residual audit, role-separated HGB pipeline, and system comparison entry point. Historical experiments, revision records, raw PCAPs, and model checkpoints are not included.
@@ -64,11 +59,11 @@ Building samples from PCAP files also requires `tshark`.
 A full reproduction requires the fixed 5,000-flow development dataset described by the paper. Its directory must contain `manifest.csv`, `past_features.csv`, `sequences.npz`, and `dataset_metadata.json`.
 
 ```bash
-python3 experiments/top_binary_pilot/run_protocol_residual_audit.py \
+python3 code/run_protocol_residual_audit.py \
   --data-dir /path/to/development-data \
   --output-dir /path/to/residual-audit
 
-python3 experiments/top_binary_pilot/run_residual_hgb_probe.py \
+python3 code/run_residual_hgb_probe.py \
   --data-dir /path/to/development-data \
   --output-dir /path/to/nesttor-output
 ```
@@ -78,7 +73,7 @@ Both experiment entry points refuse to overwrite an existing output directory. T
 To verify the source files without running an experiment:
 
 ```bash
-python3 -m py_compile experiments/top_binary_pilot/*.py
+python3 -m py_compile code/*.py
 ```
 
 ## Data
