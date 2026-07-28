@@ -1,4 +1,4 @@
-# NestTor: Detecting Tor within Encrypted Proxy Tunnels by Separating Proxy and Tor Evidence
+# NESTTOR: Detecting Tor-over-Proxy Traffic with Factorized Decisions
 
 [中文](README_zh.md)
 
