@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use NESTTOR in your research, please cite the paper below."
+type: software
+title: "NESTTOR: Detecting Tor-over-Proxy Traffic with Factorized Decisions"
+authors:
+  - family-names: Zhou
+    given-names: Chenxin
+  - family-names: Huang
+    given-names: Cheng
+  - family-names: Zhang
+    given-names: Qiang
+  - family-names: Xie
+    given-names: Qiliang
+  - family-names: Li
+    given-names: Zeqing
+repository-code: "https://github.com/GSTovey/NestTor"
+url: "https://github.com/GSTovey/NestTor"
+preferred-citation:
+  type: article
+  title: "NESTTOR: Detecting Tor-over-Proxy Traffic with Factorized Decisions"
+  authors:
+    - family-names: Zhou
+      given-names: Chenxin
+    - family-names: Huang
+      given-names: Cheng
+    - family-names: Zhang
+      given-names: Qiang
+    - family-names: Xie
+      given-names: Qiliang
+    - family-names: Li
+      given-names: Zeqing
+  journal: "IEEE Transactions on Network and Service Management"
+  year: 2026
+  doi: "10.1109/TNSM.2026.3743261"
+  url: "https://ieeexplore.ieee.org/document/11735245"

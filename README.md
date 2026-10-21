@@ -1,98 +1,41 @@
 # NESTTOR: Detecting Tor-over-Proxy Traffic with Factorized Decisions
 
-[中文](README_zh.md)
+[中文](README_zh.md) | [Paper](https://ieeexplore.ieee.org/document/11735245) | [DOI](https://doi.org/10.1109/TNSM.2026.3743261) | [Project](https://github.com/GSTovey/NestTor)
 
-NestTor detects whether an encrypted proxy flow carries Tor without using addresses, ports, domains, filenames, absolute timestamps, payload content, or high-cardinality identifiers. The supported outer proxies are Shadowsocks, Trojan, VMess, and VLESS.
+**IEEE Transactions on Network and Service Management (TNSM), 2026**
 
-![NESTTOR main framework](main_framework.png)
+NESTTOR studies Tor-over-Proxy detection from a single bidirectional TCP flow observed between the client and an encrypted proxy. We investigate which Tor behaviors remain observable after proxy encapsulation and how to combine evidence of an outer proxy with evidence of Tor inside it.
 
-This repository is for research use only.
+## Main Contributions
 
-## Method
+- **Observable behavior after proxy transformation.** We formalize the client-to-proxy observation path and analyze how proxy framing, buffering, and TCP segmentation transform Tor traffic. A protocol audit identifies directional interaction, stage evolution, and coupling between bursts and responses as observable sources of evidence.
+- **Factorized detection.** NESTTOR trains a proxy gate and a proxy-conditioned Tor detector independently, then combines their decisions with an AND rule. Stage-based flow features describe relative connection evolution without reconstructing Tor cells.
+- **Longitudinal evaluation with leakage controls.** We construct a benchmark spanning Shadowsocks, Trojan, VMess, and VLESS, with Tor-over-Proxy, Pure Proxy, Direct Tor, and Ordinary traffic. The evaluation excludes identifier features, separates domains and captures across partitions, and examines detection effectiveness, design contributions, packet transformations, and distribution shifts.
 
-Tor-over-Proxy requires two conditions: an outer proxy must be present, and Tor must be present inside that proxy. NestTor models them separately:
+## Research Questions
 
-- the proxy gate \(Q\) tests for outer-proxy evidence;
-- the inner Tor detector \(T\) tests for Tor evidence inside a proxy;
-- the final prediction is the hard conjunction of the two threshold decisions.
+- **RQ1: Observable behavior.** What Tor behaviors remain consistently observable across proxies after encrypted proxy encapsulation?
+- **RQ2: Detection effectiveness.** How effective is ToP detection under controls against information leakage?
+- **RQ3: Design contributions.** Which design choices drive NESTTOR's performance, robustness, and efficiency?
+- **RQ4: Generalization.** Can NESTTOR generalize across proxy types, capture periods, and background distributions?
 
-Each bidirectional TCP flow is represented by packet direction, payload length, relative inter-packet timing, burst behavior, and changes across early, middle, and late stages. The primary stage-dynamics representation combines 62 flow-behavior dimensions with 37 stage-dynamics dimensions. The proxy gate and inner detector are independently trained HGB models; they do not share parameters, an encoder, or a joint loss.
+## Framework
 
-The protocol-residual representation is an alternative input for the inner detector and is not fused with the primary representation. For an unseen proxy, label-access calibration may adjust only the inner threshold using a disjoint Pure Proxy reference set. It does not access ToP labels, retrain the model, or construct traffic pairs.
+[![NESTTOR framework](main_framework.png)](figures/nesttor_overview.pdf)
 
-## Repository contents
-
-```text
-data/
-  manifest.csv
-  past_features.csv
-  sequences.npz
-  dataset_metadata.json
-code/
-  common.py
-  build_pilot_dataset.py
-  run_pilot.py
-  protocol_residual.py
-  run_protocol_residual_audit.py
-  run_residual_hgb_probe.py
-  compare_role_separated_systems.py
-main_framework.png
-```
-
-The public code contains the current core data builder, representation code, protocol-residual audit, role-separated HGB pipeline, and system comparison entry point. Historical experiments, revision records, raw PCAPs, and model checkpoints are not included.
-
-## Installation
-
-Python 3.10 or newer is recommended.
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-```
-
-Building samples from PCAP files also requires `tshark`.
-
-## Running the core pipeline
-
-A full reproduction requires the fixed 5,000-flow development dataset described by the paper. Its directory must contain `manifest.csv`, `past_features.csv`, `sequences.npz`, and `dataset_metadata.json`.
-
-```bash
-python3 code/run_protocol_residual_audit.py \
-  --data-dir /path/to/development-data \
-  --output-dir /path/to/residual-audit
-
-python3 code/run_residual_hgb_probe.py \
-  --data-dir /path/to/development-data \
-  --output-dir /path/to/nesttor-output
-```
-
-Both experiment entry points refuse to overwrite an existing output directory. The public `data/` directory is a 650-flow processed compatibility sample for format inspection. It is not the development or confirmatory dataset and does not contain Pure Proxy negatives, so it must not be used to reproduce the headline results.
-
-To verify the source files without running an experiment:
-
-```bash
-python3 -m py_compile code/*.py
-```
-
-## Data
-
-The current manuscript reports a NestTor Benchmark containing 349,891 unique bidirectional TCP flows, 77,826 PCAP files, and 1,663 verifiable domains across the four proxy protocols. Domain- and capture-level groups are kept disjoint by the experimental manifests.
-
-Raw PCAPs are not distributed in this repository. Researchers who need access may contact `tovey_zhou@foxmail.com`.
-
-See [data/README.md](data/README.md) for the public sample schema.
-
-## Results and scope
-
-The current manuscript reports 99.45% macro-F1 on its held-out confirmatory evaluation. In the native end-to-end comparison under the same data permissions and splits, NestTor leads the next-best reproduced method by 11.99 percentage points.
-
-These results do not imply uniform robustness. The manuscript separately evaluates unseen proxies, capture changes, and packet-level transformations, and reports sensitivity under distribution shift. Claims should therefore remain tied to the stated manifests, label-access rules, and evaluation conditions.
+Click the figure to open the vector PDF from the paper.
 
 ## Citation
 
-Please cite the NestTor paper if this repository supports your research. Formal bibliographic information will be added after publication.
+C. Zhou, C. Huang, Q. Zhang, Q. Xie, and Z. Li, “NESTTOR: Detecting Tor-over-Proxy Traffic with Factorized Decisions,” *IEEE Transactions on Network and Service Management*, 2026, doi: [10.1109/TNSM.2026.3743261](https://doi.org/10.1109/TNSM.2026.3743261).
 
-## License
-
-License information will be added when the public release is finalized.
+```bibtex
+@article{zhou2026nesttor,
+  author  = {Zhou, Chenxin and Huang, Cheng and Zhang, Qiang and Xie, Qiliang and Li, Zeqing},
+  title   = {{NESTTOR}: Detecting {Tor-over-Proxy} Traffic with Factorized Decisions},
+  journal = {IEEE Transactions on Network and Service Management},
+  year    = {2026},
+  doi     = {10.1109/TNSM.2026.3743261},
+  url     = {https://ieeexplore.ieee.org/document/11735245}
+}
+```
