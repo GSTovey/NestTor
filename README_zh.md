@@ -25,6 +25,10 @@ NESTTOR 研究如何从客户端与加密代理之间观测到的单条双向 TC
 
 点击主图可查看论文中的矢量 PDF。
 
+## 联系方式
+
+如需科研交流或申请数据访问，请联系 [tovey_zhou@foxmail.com](mailto:tovey_zhou@foxmail.com)。
+
 ## 引用
 
 C. Zhou, C. Huang, Q. Zhang, Q. Xie, and Z. Li, “NESTTOR: Detecting Tor-over-Proxy Traffic with Factorized Decisions,” *IEEE Transactions on Network and Service Management*, 2026, doi: [10.1109/TNSM.2026.3743261](https://doi.org/10.1109/TNSM.2026.3743261).

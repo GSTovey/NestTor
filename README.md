@@ -25,6 +25,10 @@ NESTTOR studies Tor-over-Proxy detection from a single bidirectional TCP flow ob
 
 Click the figure to open the vector PDF from the paper.
 
+## Contact
+
+For research inquiries or dataset access, contact [tovey_zhou@foxmail.com](mailto:tovey_zhou@foxmail.com).
+
 ## Citation
 
 C. Zhou, C. Huang, Q. Zhang, Q. Xie, and Z. Li, “NESTTOR: Detecting Tor-over-Proxy Traffic with Factorized Decisions,” *IEEE Transactions on Network and Service Management*, 2026, doi: [10.1109/TNSM.2026.3743261](https://doi.org/10.1109/TNSM.2026.3743261).
